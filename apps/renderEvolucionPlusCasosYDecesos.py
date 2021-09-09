@@ -400,6 +400,7 @@ def display_values_tot(btn_start,
                     "tiempo_previo_r":t_R,
                     "numero_expuestos_inicial":E_in,
                     "numero_infectados_inicial":I_in,
+                    "funcion_de_transicion_Expuesto_A_Infectado": pdfORcdf,
                     }
     # creacion del folder necesario
     folder, date_info = sd.create_folder()
@@ -413,5 +414,7 @@ def display_values_tot(btn_start,
     # creación del csv + plots
     sd.generate_plots_csv(df, folder)
     print("|------- GRÁFICAS GUARDADAS -------|")
+
+    print("|------- CARPETA: %s -------|" % date_info )
 
     return fig_ncc, fig_ccc, fig_ndc, fig_cdc, fig_animation
