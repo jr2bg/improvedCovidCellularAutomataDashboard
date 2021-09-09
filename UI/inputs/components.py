@@ -482,7 +482,7 @@ funcionDeTransicionExpuestoAInfectado.establecerFuncionInputRender(
 
 botonStart = InputComponent(
     idComponent = "-button-start",
-    formatoValor = ''
+    formatoValor = '',
     mostrarInput = False
     )
 

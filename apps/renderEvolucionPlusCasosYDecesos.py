@@ -1,10 +1,247 @@
+# -*- coding: utf-8 -*-
+
+#import dash
+#import dash_core_components as dcc
+#import dash_html_components as html
+from dash.dependencies import Input, Output, State
+from plotly.graph_objects import Figure, Scatter
+from plotly.express import imshow
+from math import inf
+import xarray as xr
+
+from app import app
+import UI.inputs.components as IC
+import UI.outputs.plots as GC
+import UI.layout
+from apps.evolucionPlusCasosYDecesos import iterations
+import apps.utils.save_data as sd
+
+idTab = "test"
+titulo = "testeando ando"
+
+UI.layout.asignarIdTabAComponentes(idTab)
+
+layout = UI.layout.layout(titulo)
+
+@app.callback(Output(
+    IC.numeroFilasMapa.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.numeroFilasMapa.idInput,
+        IC.numeroFilasMapa.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "Número de filas: {}".format(value)
+
+
+@app.callback(Output(
+    IC.numeroColumnasMapa.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.numeroColumnasMapa.idInput,
+        IC.numeroColumnasMapa.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "Número de columnas: {}".format(value)
+
+
+@app.callback(Output(
+    IC.radioEsferaInfluencia.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.radioEsferaInfluencia.idInput,
+        IC.radioEsferaInfluencia.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "Radio de la esfera de influencia: {}".format(value)
+
+
+@app.callback(Output(
+    IC.densidadPoblacion.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.densidadPoblacion.idInput,
+        IC.densidadPoblacion.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "Densidad de población: {}".format(value)
+
+
+@app.callback(Output(
+    IC.numeroCiclos.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.numeroCiclos.idInput,
+        IC.numeroCiclos.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "Número de ciclos: {}".format(value)
+
+
+@app.callback(Output(
+    IC.numeroReproduccionBasico.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.numeroReproduccionBasico.idInput,
+        IC.numeroReproduccionBasico.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "R_0: {}".format(value)
+
+
+@app.callback(Output(
+    IC.tiempoInfeccioso.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.tiempoInfeccioso.idInput,
+        IC.tiempoInfeccioso.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "Tiempo de infeccioso: {}".format(value)
+
+
+@app.callback(Output(
+    IC.caseFatalityRatio.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.caseFatalityRatio.idInput,
+        IC.caseFatalityRatio.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "Case-fatality risk: {}".format(value)
+
+
+@app.callback(Output(
+    IC.tiempoPrevioInfeccioso.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.tiempoPrevioInfeccioso.idInput,
+        IC.tiempoPrevioInfeccioso.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "t_I: {}".format(value)
+
+
+@app.callback(Output(
+    IC.probabilidadEntrarCuarentena.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.probabilidadEntrarCuarentena.idInput,
+        IC.probabilidadEntrarCuarentena.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "p_Q: {}".format(value)
+
+
+@app.callback(Output(
+    IC.tiempoPrevioEntrarCuarentena.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.tiempoPrevioEntrarCuarentena.idInput,
+        IC.tiempoPrevioEntrarCuarentena.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "t_Q: {}".format(value)
+
+
+@app.callback(Output(
+    IC.tiempoPrevioACierreDeActividades.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.tiempoPrevioACierreDeActividades.idInput,
+        IC.tiempoPrevioACierreDeActividades.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    #if value > 0:
+    #    return "t_L: {}".format(value)
+    #return "t_L: inf"
+    return "t_L: {}".format(value)
+
+
+@app.callback(Output(
+    IC.tiempoPrevioARecuperadoOFallecido.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.tiempoPrevioARecuperadoOFallecido.idInput,
+        IC.tiempoPrevioARecuperadoOFallecido.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "t_R: {}".format(value)
+
+
+@app.callback(Output(
+    IC.numeroInicialDeExpuestos.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.numeroInicialDeExpuestos.idInput,
+        IC.numeroInicialDeExpuestos.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "E_in: {}".format(value)
+
+
+@app.callback(Output(
+    IC.numeroInicialDeInfectados.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.numeroInicialDeInfectados.idInput,
+        IC.numeroInicialDeInfectados.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "I_in: {}".format(value)
+
 @app.callback(
-     [Output("fig-ncc-covid19owid", "figure"),
-     Output("fig-ccc-covid19owid", "figure"),
-     Output("fig-ndc-covid19owid", "figure"),
-     Output("fig-cdc-covid19owid", "figure"),
-     Output("anim-covid19owid", "figure")],
-    [Input('fcovid19owid-button-start', 'n_clicks')],
+     [Output(GC.nuevosCasosConfirmados.idGraph, "figure"),
+     Output(GC.acumuladoCasosConfirmados.idGraph, "figure"),
+     Output(GC.nuevasMuertesConfirmadas.idGraph, "figure"),
+     Output(GC.acumuladoMuertesConfirmadas.idGraph, "figure"),
+     Output(GC.animacion.idGraph, "figure")],
+    [Input(IC.botonStart.idInput, 'n_clicks')],
     [State(IC.numeroFilasMapa.idInput,'value'),
      State(IC.numeroColumnasMapa.idInput,'value'),
      State(IC.radioEsferaInfluencia.idInput, 'value'),
@@ -38,7 +275,7 @@ def display_values_tot(btn_start,
                        t_R,
                        E_in,
                        I_in,
-                       keyFuncionTransicionExpuestoInfec
+                       pdfORcdf
                        ):
 
     print("sz_r: %d" %(sz_r))
@@ -57,7 +294,8 @@ def display_values_tot(btn_start,
     print("t_R: %d" %(t_R))
     print("E_in: %d" %(E_in))
     print("I_in: %d" %(I_in))
-    df, l_frames = iterations_covid19owid(
+    print("Funcion a usar: %s" %(pdfORcdf))
+    df, l_frames = iterations(
                sz_r,
                sz_c,
                d,
@@ -73,6 +311,7 @@ def display_values_tot(btn_start,
                t_R,
                E_in,
                I_in,
+               pdfORcdf,
               )
     print(df.keys())
     # print(df["% nuevas muertes confirmadas"])
@@ -80,7 +319,7 @@ def display_values_tot(btn_start,
     # print(df["% nuevas muertes confirmadas"] == df["% acumulado muertes confirmadas"])
 
     # nuevos casos confirmados
-    fig_ncc = go.Figure(data = go.Scatter(x = df["t"],
+    fig_ncc = Figure(data = Scatter(x = df["t"],
                                       y = df["% nuevos casos confirmados"],
                                       mode="lines+markers"))
     fig_ncc.update_layout(title = "Nuevos casos confirmados",
@@ -88,7 +327,7 @@ def display_values_tot(btn_start,
                       yaxis_title="% nuevos casos confirmados")
 
     # acumulado de casos confirmados
-    fig_ccc = go.Figure(data = go.Scatter(x = df["t"],
+    fig_ccc = Figure(data = Scatter(x = df["t"],
                                       y = df["% de casos confirmados acumulados"],
                                       mode="lines+markers"))
     fig_ccc.update_layout(title = "Acumulado casos confirmados",
@@ -96,7 +335,7 @@ def display_values_tot(btn_start,
                       yaxis_title="% de casos confirmados acumulados")
 
     # nuevas muertes confirmadas
-    fig_ndc = go.Figure(data = go.Scatter(x = df["t"],
+    fig_ndc = Figure(data = Scatter(x = df["t"],
                                       y = df["% nuevas muertes confirmadas"],
                                       mode="lines+markers"))
     fig_ndc.update_layout(title = "Nuevas muertes confirmadas",
@@ -104,7 +343,7 @@ def display_values_tot(btn_start,
                       yaxis_title="% nuevas muertes confirmadas")
 
     # acumulado miertes confirmadas
-    fig_cdc = go.Figure(data = go.Scatter(x = df["t"],
+    fig_cdc = Figure(data = Scatter(x = df["t"],
                                       y = df["% acumulado muertes confirmadas"],
                                       mode="lines+markers"))
     fig_cdc.update_layout(title = "Acumulado de muertes confirmadas",
@@ -130,7 +369,7 @@ def display_values_tot(btn_start,
                "#FFFF00",
                "#FFFFFF",
                "#800080"]
-    fig_animation=px.imshow(frames,
+    fig_animation = imshow(frames,
                             animation_frame="tiempo",
                             #labels={"x":None, "y":None, "color":None},
                             range_color=[0,6],

@@ -357,7 +357,8 @@ def f_p_E(R_0, D, d, t_infeccioso = 10):
 # consideraremos los siguientes valores obtenidos de tratar de reproducir la
 # gráfica del artículo de Lauer etal 2020
 # Se calculará al principio
-def f_p_I(s= 0.465, loc = 0, scale = 5.5, fst_q = 0.0001, lst_q = 0.9999 ,step = 1):
+def f_p_I(pdfORcdf, s= 0.465, loc = 0, scale = 5.5,
+    fst_q = 0.0001, lst_q = 0.9999 ,step = 1):
     '''
     s -> escala
     loc -> ubicación del origen
@@ -374,8 +375,12 @@ def f_p_I(s= 0.465, loc = 0, scale = 5.5, fst_q = 0.0001, lst_q = 0.9999 ,step =
 
     # np array con 100 entradas que van desde st hasta nd
     x_cont = np.linspace(st,nd,100)
-    # pdf de la función lognormal con los parámetros especificados
-    lognm_pdf = lognorm.pdf(x_cont,s, loc, scale)
+
+    if pdfORcdf == "pdf":
+        # pdf de la función lognormal con los parámetros especificados
+        lognm_distribution_values = lognorm.pdf(x_cont,s, loc, scale)
+    elif pdfORcdf == "cdf":
+        lognm_distribution_values = lognorm.cdf(x_cont,s, loc, scale)
 
     # convertimos a una lista de enteros con índices los días y
     # las entradas los valores de la probabilidad
@@ -389,14 +394,14 @@ def f_p_I(s= 0.465, loc = 0, scale = 5.5, fst_q = 0.0001, lst_q = 0.9999 ,step =
 
         # función monótona creciente
         if i <= x_cont[j] < i + step:
-            sm += lognm_pdf[j]
+            sm += lognm_distribution_values[j]
             cont += 1
         else:
             if i == 0: cont = 1;
             prob_step.append(sm / cont)
             i += step
             cont = 1
-            sm = lognm_pdf[j]
+            sm = lognm_distribution_values[j]
 
     # la última prob se debe anexar al terminar de ejecutarse el código
     prob_step.append(sm / cont)

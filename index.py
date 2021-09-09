@@ -3,7 +3,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app
-from apps import test
+from apps import renderEvolucionPlusCasosYDecesos
 
 app.layout = html.Div(
     [
@@ -24,8 +24,7 @@ def render_content(tab):
     if tab == 'tab-covid19owid':
         return html.Div(
             [
-                #dash_covid19_owid.layout
-                test.layout
+                renderEvolucionPlusCasosYDecesos.layout
             ]
         )
 
