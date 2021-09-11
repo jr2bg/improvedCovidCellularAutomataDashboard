@@ -207,6 +207,19 @@ def display_value(value):
 def display_value(value):
     return "t_R: {}".format(value)
 
+@app.callback(Output(
+    IC.tiempoDeRespuesta.idSeleccion,
+    'children'
+    ),
+    [Input(
+        IC.tiempoDeRespuesta.idInput,
+        IC.tiempoDeRespuesta.formatoValor,
+        )
+    ]
+)
+def display_value(value):
+    return "Tiempo de respuesta: {}".format(value)
+
 
 @app.callback(Output(
     IC.numeroInicialDeExpuestos.idSeleccion,

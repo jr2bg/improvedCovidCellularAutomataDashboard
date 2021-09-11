@@ -401,6 +401,33 @@ tiempoPrevioARecuperadoOFallecido.establecerFuncionInputRender(
 )
 
 
+tiempoDeRespuesta = InputComponent(
+    idComponent = "-t-Resp",
+    formatoValor = 'drag_value'
+    )
+
+tiempoDeRespuesta.establecerFuncionInputRender(
+    lambda idInput : dcc.Slider(
+        min=0,
+        max=21,
+        step=1,
+        value=15,
+        marks={
+            0: {
+                'label': '0',
+                'style': {'color': '#77b0b1'}
+                },
+            15: {'label': '15'},
+            21: {
+                'label': '21',
+                'style': {'color': '#f50'}
+                }
+            },
+        id = idInput,
+    )
+)
+
+
 numeroInicialDeExpuestos = InputComponent(
     idComponent = "-E-in",
     formatoValor = 'drag_value'
@@ -509,6 +536,7 @@ componentes = [
     tiempoPrevioEntrarCuarentena,
     tiempoPrevioACierreDeActividades,
     tiempoPrevioARecuperadoOFallecido,
+    tiempoDeRespuesta,
     numeroInicialDeExpuestos,
     numeroInicialDeInfectados,
     funcionDeTransicionExpuestoAInfectado,

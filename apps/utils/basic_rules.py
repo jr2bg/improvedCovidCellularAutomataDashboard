@@ -618,7 +618,7 @@ def f_sum_d_data(d_ncont_hour, arr_population, habs, arr_tiempo,
 
 
 
-
+    
 ###### función de un día
 def f_one_day_24h(
                    sz_r,
